@@ -7,7 +7,7 @@ struct FlickrRequest {
         case interestingPhotos = "flickr.interestingness.getlist"
     }
     
-    private static let base = "https://api.flickr.com/services/rest"
+    private static let base       = "https://api.flickr.com/services/rest"
     private static let API_KEY    = "4852fcab11abc3afa216b6c960fc102e"
     private static let API_SECRET = "f83fe10a105e0db3"
     
@@ -22,7 +22,7 @@ struct FlickrRequest {
         
         var components = URLComponents(string: base)!
         
-        var queryItems = [URLQueryItem]()
+        var queryItems: [URLQueryItem] = []
         
         let baseParams = [
             "method":         method.rawValue,
@@ -42,8 +42,6 @@ struct FlickrRequest {
         }
         
         components.queryItems = queryItems
-        
-        print(components.url)
         
         return (components.url)!
         

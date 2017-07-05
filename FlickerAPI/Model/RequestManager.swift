@@ -34,11 +34,11 @@ struct InterstingPhotosAPIManager {
             
             guard let JSONdata = data else { return }
             
-            let result = self.traversePhotos(from: JSONdata)
+            let result = self.traverseJSON(from: JSONdata)
             
             switch result {
                 case .success(let photo):
-                    completion(photo[2].remoteURL.description)
+                    completion((photo[0].remoteURL?.description)!)
                 case .failure(let error):
                     print(error)
             }
@@ -49,7 +49,7 @@ struct InterstingPhotosAPIManager {
     }
     
     
-    func traversePhotos(from data: Data) -> Result {
+    func traverseJSON(from data: Data) -> Result {
         
         guard let jsonObject =
             try? JSONSerialization.jsonObject(with: data, options: []) else {
@@ -68,8 +68,6 @@ struct InterstingPhotosAPIManager {
             return .failure(Result.FlickrError.invalidJSONData)
         }
         
-        print(photo)
-        
         var finalPhotos: [Photo] = []
         
         for photoJSON: [String:Any] in photo {
@@ -77,14 +75,20 @@ struct InterstingPhotosAPIManager {
             // 結論: instance method からは static method を呼べる。
             if let photo = InterstingPhotosAPIManager.traversePhoto(fromJSON: photoJSON) {
                 finalPhotos.append(photo)
+            } else {
+                return .failure(Result.FlickrError.invalidJSONData)
             }
         }
         
-        print(finalPhotos[0])
+        guard !finalPhotos.isEmpty, !photo.isEmpty else {
+            return .failure(Result.FlickrError.invalidJSONData)
+        }
         
+        /*
         if finalPhotos.isEmpty && !photo.isEmpty {
             return .failure(Result.FlickrError.invalidJSONData)
         }
+        */
         
         return .success(finalPhotos)
         
@@ -94,9 +98,10 @@ struct InterstingPhotosAPIManager {
         
         guard let photoID        = json["id"]        as? String,
               let title          = json["title"]     as? String,
-        
-              let photoURLString = json["url_h"]     as? String,
-              let URL = URL(string: photoURLString),
+            
+            // ここ、nilになりうる！！なめんなマジで
+            // let photoURLString = json["url_h"]     as? String,
+            // let URL = URL(string: photoURLString),
             
               let date = json["datetaken"] as? String,
               // ここはstatic methodじゃないと認識されない。。。
@@ -107,24 +112,26 @@ struct InterstingPhotosAPIManager {
         // 結論: static method からは instance method を呼べない。
         // hoge()
         
-        return Photo(ID: photoID, title: title, remoteURL: URL, dateTaken: dateTaken)
+        var url: URL?
+        
+        if let photoURLString = json["url_h"] as? String {
+            url = URL(string: photoURLString)
+        }
+        
+        return Photo(ID: photoID, title: title, remoteURL: url, dateTaken: dateTaken)
         
     }
     
     static func formatDate(_ str: String) -> Date? {
         let formatter = DateFormatter()
+        // ここの文字列、jsonのstringとフォーマットを一致させないとdate(from:)は失敗する。あぶねぇ
         formatter.dateFormat = "yyyy'-'MM'-'dd' 'HH':'mm':'ss'"
-        
-        let res = formatter.date(from: str)
-        
-        return res
-        
+        return formatter.date(from: str)
     }
     
     func hoge() {}
     static func fuga() {}
     
 }
-
 
 

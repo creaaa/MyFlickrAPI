@@ -19,7 +19,7 @@ class SimpleAsyncImageView: UIImageView {
                     self.image = image;
                     
                 }else{ //Error
-                    print("AsyncImageView:Error \(err?.localizedDescription)");
+                    print("AsyncImageView:Error \(String(describing: err?.localizedDescription))");
                 }
         }).resume();
     }
