@@ -13,7 +13,7 @@ struct InterstingPhotosAPIManager {
     }
     
     
-    func request(completion: @escaping (String) -> Void) {
+    func request(completion: @escaping (URL) -> Void) {
         
         let session: URLSession = {
             let config = URLSessionConfiguration.default
@@ -36,7 +36,8 @@ struct InterstingPhotosAPIManager {
             
             switch result {
                 case .success(let photos):
-                    completion((photos[0].url_h?.description)!)
+                    guard let url = photos[1].url_h else { return }
+                    completion(url)
                 case .failure(let error):
                     print(error)
             }

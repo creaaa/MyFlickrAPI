@@ -2,9 +2,7 @@
 import Foundation
 
 struct PhotoData: Codable {
-    
     struct Photos: Codable {
-        // (とりあえず、 id: String, title: String?, url_h: URL? で1回通ったことある。)
         struct Photo: Codable, CustomStringConvertible {
             let id: String        // ここ、Intにするとエラー！
             let title:     String // やばかったら ? に戻して
