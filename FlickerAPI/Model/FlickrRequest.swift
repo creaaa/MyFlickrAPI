@@ -31,18 +31,39 @@ struct FlickrRequest {
             "nojsoncallback": "1"
         ]
         
+        /*
         for (key, value) in baseParams {
             queryItems.append(URLQueryItem(name: key, value: value))
         }
+        */
         
+        baseParams.forEach { element in
+            queryItems.append(URLQueryItem(name: element.key, value: element.value))
+        }
+        
+        /*
         if let extra = parameters {
+            /*
             for (key, value) in extra {
                 queryItems.append(URLQueryItem(name: key, value: value))
+            }
+             */
+            
+            extra.forEach { element in
+                queryItems.append(URLQueryItem(name: element.key, value: element.value))
+            }
+        }
+        */
+        
+        _ = parameters.map {
+            $0.map {
+                queryItems.append(URLQueryItem(name: $0.key, value: $0.value))
             }
         }
         
         components.queryItems = queryItems
         
         return (components.url)!
+        
     }
 }

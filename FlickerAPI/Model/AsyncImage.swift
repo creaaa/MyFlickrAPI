@@ -2,6 +2,7 @@
 import UIKit
 
 class SimpleAsyncImageView: UIImageView {
+    
     let CACHE_SEC : TimeInterval = 5 * 60 //5分キャッシュ
 
     //画像を非同期で読み込む
