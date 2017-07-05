@@ -44,7 +44,5 @@ struct FlickrRequest {
         components.queryItems = queryItems
         
         return (components.url)!
-        
     }
-    
 }
