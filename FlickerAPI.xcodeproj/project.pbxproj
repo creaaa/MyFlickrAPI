@@ -12,6 +12,11 @@
 		443108A51F0C3241007C75CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 443108A31F0C3241007C75CF /* Main.storyboard */; };
 		443108A71F0C3241007C75CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 443108A61F0C3241007C75CF /* Assets.xcassets */; };
 		443108AA1F0C3241007C75CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 443108A81F0C3241007C75CF /* LaunchScreen.storyboard */; };
+		443108B21F0C397B007C75CF /* ModernExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443108B11F0C397B007C75CF /* ModernExt.swift */; };
+		443108B61F0C64A4007C75CF /* FlickrRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443108B51F0C64A4007C75CF /* FlickrRequest.swift */; };
+		443108B91F0C6506007C75CF /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443108B81F0C6506007C75CF /* RequestManager.swift */; };
+		443108BB1F0C656F007C75CF /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443108BA1F0C656F007C75CF /* Photo.swift */; };
+		4489A2631F0C9F40005A028E /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4489A2621F0C9F40005A028E /* AsyncImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +27,11 @@
 		443108A61F0C3241007C75CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		443108A91F0C3241007C75CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		443108AB1F0C3241007C75CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		443108B11F0C397B007C75CF /* ModernExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernExt.swift; sourceTree = "<group>"; };
+		443108B51F0C64A4007C75CF /* FlickrRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrRequest.swift; sourceTree = "<group>"; };
+		443108B81F0C6506007C75CF /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
+		443108BA1F0C656F007C75CF /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		4489A2621F0C9F40005A028E /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +65,8 @@
 			isa = PBXGroup;
 			children = (
 				4431089F1F0C3241007C75CF /* AppDelegate.swift */,
+				443108B11F0C397B007C75CF /* ModernExt.swift */,
+				443108B31F0C648A007C75CF /* Model */,
 				443108A11F0C3241007C75CF /* ViewController.swift */,
 				443108A31F0C3241007C75CF /* Main.storyboard */,
 				443108A61F0C3241007C75CF /* Assets.xcassets */,
@@ -62,6 +74,17 @@
 				443108AB1F0C3241007C75CF /* Info.plist */,
 			);
 			path = FlickerAPI;
+			sourceTree = "<group>";
+		};
+		443108B31F0C648A007C75CF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				443108B51F0C64A4007C75CF /* FlickrRequest.swift */,
+				443108B81F0C6506007C75CF /* RequestManager.swift */,
+				443108BA1F0C656F007C75CF /* Photo.swift */,
+				4489A2621F0C9F40005A028E /* AsyncImage.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,8 +158,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4489A2631F0C9F40005A028E /* AsyncImage.swift in Sources */,
+				443108BB1F0C656F007C75CF /* Photo.swift in Sources */,
+				443108B91F0C6506007C75CF /* RequestManager.swift in Sources */,
 				443108A21F0C3241007C75CF /* ViewController.swift in Sources */,
+				443108B61F0C64A4007C75CF /* FlickrRequest.swift in Sources */,
 				443108A01F0C3241007C75CF /* AppDelegate.swift in Sources */,
+				443108B21F0C397B007C75CF /* ModernExt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,6 +340,7 @@
 				443108B01F0C3241007C75CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
