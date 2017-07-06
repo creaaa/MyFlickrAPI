@@ -3,17 +3,18 @@ import Foundation
 
 struct InterstingPhotosAPIManager {
     
+    typealias Photos = PhotoData.Photos.Photo
+    
     enum Result {
-        typealias Photo = PhotoData.Photos.Photo
         enum FlickrError: Error {
             case invalidJSONData
         }
-        case success([Photo])
+        case success([Photos])
         case failure(FlickrError)
     }
     
     
-    func request(completion: @escaping (URL) -> Void) {
+    func request(completion: @escaping ([Photos]) -> Void) {
         
         let session: URLSession = {
             let config = URLSessionConfiguration.default
@@ -36,9 +37,19 @@ struct InterstingPhotosAPIManager {
             
             switch result {
                 case .success(let photos):
-                    let count = photos.count
+                    
+                    // let count = photos.count
+                
+                    // 単に写真を一枚だすだけならこれだけでおk.
+                    /*
                     guard let url = photos[Int(arc4random_uniform(UInt32(count)))].remoteURL else { return }
                     completion(url)
+                    */
+                
+                    // CollectionView
+                    completion(photos)
+                
+                
                 case .failure(let error):
                     print(error)
             }
