@@ -4,20 +4,29 @@ import Foundation
 struct PhotoData: Codable {
     struct Photos: Codable {
         struct Photo: Codable, CustomStringConvertible {
-            let id: String        // ここ、Intにするとエラー！
+            // "変更したいプロパティ名" : "実際のキー名"
+            private enum CodingKeys: String, CodingKey {
+                case id        = "id"
+                case title     = "title"
+                case remoteURL = "url_h"
+                case dateTaken = "datetaken"
+            }
+            
+            let id:        String // ここ、Intにするとエラー！
             let title:     String // やばかったら ? に戻して
-            let url_h:     URL? // ここでぬるぽになった！ ここは ? 必須！
-            let datetaken: Date
+            let remoteURL: URL?   // ここでぬるぽになった！ ここは ? 必須！
+            let dateTaken: Date
             
             var description: String {
                 return """
                 id:    \(self.id)
                 title: \(self.title)
-                url_h: \(self.url_h as Any)
-                date:  \(self.datetaken)
+                remoteURL: \(self.remoteURL as Any)
+                date:  \(self.dateTaken)
                 \n
                 """
             }
+            
         }
         let photo: [Photo]
     }

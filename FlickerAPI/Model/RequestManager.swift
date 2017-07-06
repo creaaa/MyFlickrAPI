@@ -36,7 +36,8 @@ struct InterstingPhotosAPIManager {
             
             switch result {
                 case .success(let photos):
-                    guard let url = photos[1].url_h else { return }
+                    let count = photos.count
+                    guard let url = photos[Int(arc4random_uniform(UInt32(count)))].remoteURL else { return }
                     completion(url)
                 case .failure(let error):
                     print(error)
