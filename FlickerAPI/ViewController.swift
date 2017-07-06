@@ -7,8 +7,8 @@ final class ViewController: UIViewController {
     
     @IBOutlet weak var imageView: SimpleAsyncImageView!
     
-    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         manager.request() { imgURL in
             // パターン1
