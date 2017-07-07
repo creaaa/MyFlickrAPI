@@ -1,5 +1,6 @@
 
 import UIKit
+import Kingfisher
 
 final class ViewController: UIViewController {
     
@@ -8,13 +9,15 @@ final class ViewController: UIViewController {
     var manager: InterstingPhotosAPIManager!
     var photos:  [Photo] = []
     
+    var images: [UIImage] = []
+    
+    // ↑の配列の特定のインデックスに画像が格納されているかどうかを
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        
         
         self.collectionView.delegate   = self
         self.collectionView.dataSource = self
@@ -41,8 +44,6 @@ final class ViewController: UIViewController {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
-            
-            
         }
     }
 }
@@ -63,7 +64,6 @@ extension ViewController: UICollectionViewDataSource {
         let item = collectionView.dequeueReusableCell(
             withReuseIdentifier: "Item", for: indexPath)
         
-        
         guard let imageView =
             item.contentView.viewWithTag(1) as? UIImageView else {
                 return item
@@ -72,22 +72,22 @@ extension ViewController: UICollectionViewDataSource {
         guard let url = self.photos[indexPath.row].remoteURL else {
             return item
         }
-        
-        let imageData   = try! Data(contentsOf: url)
-        imageView.image = UIImage(data: imageData)
-        
-        /*
-        self.photos.forEach { photo in
-            guard let url = self.photos[indexPath.row].remoteURL else {
-                return UICollectionViewCell()
-            }
+                
+        DispatchQueue.global().async {
             let imageData   = try! Data(contentsOf: url)
-            imageView.image = UIImage(data: imageData)
+            DispatchQueue.main.async {
+                imageView.  //image = UIImage(data: imageData)
+            }
         }
-        */
+        
         return item
         
+        
     }
+        
+        
+        
+    
     
 }
 
@@ -96,8 +96,11 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     
     // Screenサイズに応じたセルサイズを返す
     // UICollectionViewDelegateFlowLayoutの設定が必要
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellSize:CGFloat = self.view.frame.size.width/2-2
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellSize: CGFloat = self.view.frame.size.width / 3
         // 正方形で返すためにwidth,heightを同じにする
         return CGSize(width: cellSize, height: cellSize)
     }
