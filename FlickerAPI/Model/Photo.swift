@@ -4,7 +4,7 @@ import Foundation
 struct PhotoData: Codable {
     struct Photos: Codable {
         struct Photo: Codable, CustomStringConvertible {
-            // "変更したいプロパティ名" : "実際のキー名"
+            // "new name" : "actual JSON key name"
             private enum CodingKeys: String, CodingKey {
                 case id        = "id"
                 case title     = "title"
@@ -12,23 +12,21 @@ struct PhotoData: Codable {
                 case dateTaken = "datetaken"
             }
             
-            let id:        String // ここ、Intにするとエラー！
-            let title:     String // やばかったら ? に戻して
-            let remoteURL: URL?   // ここでぬるぽになった！ ここは ? 必須！
+            let id:        String
+            let title:     String
+            let remoteURL: URL?
             let dateTaken: Date
             
             var description: String {
                 return """
-                id:    \(self.id)
-                title: \(self.title)
+                id:        \(self.id)
+                title:     \(self.title)
                 remoteURL: \(self.remoteURL as Any)
-                date:  \(self.dateTaken)
-                \n
+                date:      \(self.dateTaken)
                 """
             }
-            
         }
         let photo: [Photo]
     }
-    let photos: Photos // [Photo]ではない？？もしや？？　ビンゴ。{}は[]でやるな。即エラー。
+    let photos: Photos
 }

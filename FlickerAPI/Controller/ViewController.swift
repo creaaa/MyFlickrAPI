@@ -4,14 +4,10 @@ import Kingfisher
 
 final class ViewController: UIViewController {
     
-    typealias Photo = InterstingPhotosAPIManager.Photos
+    typealias Photo = APIManager.Photos
     
-    var manager: InterstingPhotosAPIManager!
-    var photos:  [Photo] = []
-    
-    var images: [UIImage] = []
-    
-    // ↑の配列の特定のインデックスに画像が格納されているかどうかを
+    var manager: APIManager!
+    var photos:  [Photo]     = []
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -23,27 +19,11 @@ final class ViewController: UIViewController {
         self.collectionView.dataSource = self
         
         manager.request() { photos in
-            
-            // パターン1
-            // self.imageView.loadImage(urlString: imgURL)
-            
-            // パターン2 (単に写真を1枚だけ出す場合)
-            /*
-            let url = URL(string: imgURL)
-            let imageData = try! Data(contentsOf: imgURL)
-            
-            // 新事実発覚！！この中、メインスレッドではない！！！！！
-            DispatchQueue.main.async {
-                self.imageView.image = UIImage(data: imageData)
-            }
-            */
-            
+            ///////////////////////////////////////////////////////////
+            // inside here is not a MAIN THREAD, but a WORKER THREAD //
+            ///////////////////////////////////////////////////////////
             self.photos = photos
-            
-            // collectionViewを使う場合
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
+            DispatchQueue.main.async { self.collectionView.reloadData() }
         }
     }
 }
@@ -51,6 +31,24 @@ final class ViewController: UIViewController {
 
 extension ViewController: UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let selectedCell =
+            self.collectionView.cellForItem(at: indexPath) else { return }
+        
+        guard let imageView =
+            selectedCell.contentView.viewWithTag(1) as? UIImageView else { return }
+        
+        guard let image = imageView.image else { return }
+        
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        
+        let vc = sb.instantiateViewController(withIdentifier: "Detail") as! DetailViewController
+        
+        vc.image = image
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension ViewController: UICollectionViewDataSource {
@@ -74,36 +72,20 @@ extension ViewController: UICollectionViewDataSource {
         }
                 
         DispatchQueue.global().async {
-            let imageData   = try! Data(contentsOf: url)
-            DispatchQueue.main.async {
-                imageView.  //image = UIImage(data: imageData)
-            }
+            DispatchQueue.main.async { imageView.kf.setImage(with: url) }
         }
         
         return item
         
-        
     }
-        
-        
-        
-    
     
 }
 
-
 extension ViewController: UICollectionViewDelegateFlowLayout {
-    
-    // Screenサイズに応じたセルサイズを返す
-    // UICollectionViewDelegateFlowLayoutの設定が必要
-    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellSize: CGFloat = self.view.frame.size.width / 3
-        // 正方形で返すためにwidth,heightを同じにする
+        let cellSize = self.view.frame.size.width / 3
         return CGSize(width: cellSize, height: cellSize)
     }
-    
 }
-

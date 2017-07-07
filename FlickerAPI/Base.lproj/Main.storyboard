@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--MyFlickr-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="FlickerAPI" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="ViewController" customModule="FlickerAPI" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -22,27 +22,32 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="pMA-Vi-wJy">
-                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="itemSize" width="150" height="150"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Item" id="kLl-Ub-3am">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MBW-FZ-sfQ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MBW-FZ-sfQ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                                 </imageView>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="7yw-51-FAW">
+                                                    <rect key="frame" x="65" y="65" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="MBW-FZ-sfQ" firstAttribute="leading" secondItem="kLl-Ub-3am" secondAttribute="leading" id="5ZT-A6-0qi"/>
                                             <constraint firstItem="MBW-FZ-sfQ" firstAttribute="top" secondItem="kLl-Ub-3am" secondAttribute="top" id="Nmr-YW-bYd"/>
+                                            <constraint firstItem="7yw-51-FAW" firstAttribute="centerY" secondItem="kLl-Ub-3am" secondAttribute="centerY" id="Rdt-gy-CMV"/>
+                                            <constraint firstItem="7yw-51-FAW" firstAttribute="centerX" secondItem="kLl-Ub-3am" secondAttribute="centerX" id="f4K-mV-DZ6"/>
                                             <constraint firstAttribute="bottom" secondItem="MBW-FZ-sfQ" secondAttribute="bottom" id="rPw-qe-W44"/>
                                             <constraint firstAttribute="trailing" secondItem="MBW-FZ-sfQ" secondAttribute="trailing" id="yQn-RF-rR8"/>
                                         </constraints>
@@ -59,7 +64,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EMI-lf-x3T"/>
                     </view>
-                    <navigationItem key="navigationItem" id="d2r-87-E3f"/>
+                    <navigationItem key="navigationItem" title="MyFlickr" id="d2r-87-E3f"/>
                     <connections>
                         <outlet property="collectionView" destination="Q2g-FE-KZw" id="9si-2i-6Aq"/>
                     </connections>
@@ -67,6 +72,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="462" y="139"/>
+        </scene>
+        <!--MyFlickr-->
+        <scene sceneID="7jP-Vi-CRX">
+            <objects>
+                <viewController storyboardIdentifier="Detail" title="MyFlickr" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="91a-kP-CVi" customClass="DetailViewController" customModule="FlickerAPI" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides/>
+                    <view key="view" contentMode="scaleToFill" id="yg5-Lm-a3x">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="y8u-K0-R3K">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wZ4-Jf-FUf" firstAttribute="trailing" secondItem="y8u-K0-R3K" secondAttribute="trailing" id="Qlp-Xz-3XD"/>
+                            <constraint firstItem="wZ4-Jf-FUf" firstAttribute="bottom" secondItem="y8u-K0-R3K" secondAttribute="bottom" id="U4w-tZ-hTn"/>
+                            <constraint firstItem="y8u-K0-R3K" firstAttribute="leading" secondItem="wZ4-Jf-FUf" secondAttribute="leading" id="VpY-dl-4Oa"/>
+                            <constraint firstItem="y8u-K0-R3K" firstAttribute="top" secondItem="wZ4-Jf-FUf" secondAttribute="top" id="YjG-kQ-EDf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wZ4-Jf-FUf"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="y8u-K0-R3K" id="yCz-Lg-3B4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xXu-BU-V2u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1284" y="139"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tEz-s3-Mcv">

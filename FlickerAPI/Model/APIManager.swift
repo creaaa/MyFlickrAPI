@@ -1,11 +1,11 @@
 
 import Foundation
 
-struct InterstingPhotosAPIManager {
+struct APIManager {
     
     typealias Photos = PhotoData.Photos.Photo
     
-    enum Result {
+    private enum Result {
         enum FlickrError: Error {
             case invalidJSONData
         }
@@ -37,19 +37,7 @@ struct InterstingPhotosAPIManager {
             
             switch result {
                 case .success(let photos):
-                    
-                    // let count = photos.count
-                
-                    // 単に写真を一枚だすだけならこれだけでおk.
-                    /*
-                    guard let url = photos[Int(arc4random_uniform(UInt32(count)))].remoteURL else { return }
-                    completion(url)
-                    */
-                
-                    // CollectionView
                     completion(photos)
-                
-                
                 case .failure(let error):
                     print(error)
             }
@@ -59,10 +47,10 @@ struct InterstingPhotosAPIManager {
     }
     
     
-    func mappingJSON(from data: Data) -> Result {
+    private func mappingJSON(from data: Data) -> Result {
         
         let formatter = DateFormatter()
-        // ここの文字列、jsonのstringとフォーマットを一致させないとdate(from:)は失敗する。あぶねぇ
+        
         formatter.dateFormat = "yyyy'-'MM'-'dd' 'HH':'mm':'ss'"
         
         let decoder = JSONDecoder()
@@ -70,13 +58,10 @@ struct InterstingPhotosAPIManager {
         
         do {
             let photos = try decoder.decode(PhotoData.self, from: data)
-            print(photos, separator: "")
             return .success(photos.photos.photo)
         } catch {
             return .failure(Result.FlickrError.invalidJSONData)
         }
     }
-    
 }
-
 

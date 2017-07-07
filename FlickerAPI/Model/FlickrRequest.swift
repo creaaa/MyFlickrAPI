@@ -3,7 +3,7 @@ import Foundation
 
 struct FlickrRequest {
     
-    enum Method: String {
+    private enum Method: String {
         case interestingPhotos = "flickr.interestingness.getlist"
         case recentPhotos      = "flickr.photos.getRecent"
     }
@@ -14,7 +14,7 @@ struct FlickrRequest {
     
     // end point
     static var interestingPhotosURL: URL {
-        return flickrURL(method: .recentPhotos,
+        return flickrURL(method: .interestingPhotos,
                          parameters: ["extras":"url_h, date_taken"])
     }
     

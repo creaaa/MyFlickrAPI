@@ -9,11 +9,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         let rootViewController  = window?.rootViewController as! UINavigationController
-        let photoViewController = rootViewController.topViewController as! ViewController
+        let photoViewController =
+            rootViewController.topViewController as! ViewController
         
-        photoViewController.manager = InterstingPhotosAPIManager()
+        photoViewController.manager = APIManager()
         
         return true
-        
     }
 }
