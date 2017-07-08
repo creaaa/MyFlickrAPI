@@ -71,7 +71,7 @@ extension ViewController: UICollectionViewDataSource {
                 return item
         }
         
-        guard le1t url = self.photos[indexPath.row].remoteURL else {
+        guard let url = self.photos[indexPath.row].remoteURL else {
             return item
         }
                 
