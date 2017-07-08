@@ -4,8 +4,8 @@ import Foundation
 struct FlickrRequest {
     
     private enum Method: String {
-        case interestingPhotos = "flickr.interestingness.getlist"
-        case recentPhotos      = "flickr.photos.getRecent"
+        case interestingPhotos    = "flickr.interestingness.getlist"
+        case recentPhotos         = "flickr.photos.getRecent"
     }
     
     private static let base       = "https://api.flickr.com/services/rest"
@@ -37,9 +37,7 @@ struct FlickrRequest {
         }
                 
         _ = parameters.map {
-            $0.map {
-                queryItems.append(URLQueryItem(name: $0.key, value: $0.value))
-            }
+            $0.map { queryItems.append(URLQueryItem(name: $0.key, value: $0.value)) }
         }
         
         components.queryItems = queryItems

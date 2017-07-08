@@ -5,14 +5,14 @@ struct APIManager {
     
     typealias Photos = PhotoData.Photos.Photo
     
-    private enum Result {
-        enum FlickrError: Error {
-            case invalidJSONData
-        }
-        case success([Photos])
-        case failure(FlickrError)
+    enum FlickrError: Error {
+        case invalidJSONData
     }
     
+    private enum Result<T, Error> {
+        case success(T)
+        case failure(Error)
+    }
     
     func request(completion: @escaping ([Photos]) -> Void) {
         
@@ -44,10 +44,15 @@ struct APIManager {
             
         }.resume()
         
+        session.finishTasksAndInvalidate() // if yu miss
+        
+        // task.resume()
+        
     }
     
     
-    private func mappingJSON(from data: Data) -> Result {
+    private func mappingJSON(from data: Data) -> Result<[Photos], FlickrError> {
+        
         
         let formatter = DateFormatter()
         
@@ -60,7 +65,7 @@ struct APIManager {
             let photos = try decoder.decode(PhotoData.self, from: data)
             return .success(photos.photos.photo)
         } catch {
-            return .failure(Result.FlickrError.invalidJSONData)
+            return .failure(.invalidJSONData)
         }
     }
 }
