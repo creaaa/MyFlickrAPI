@@ -43,19 +43,15 @@ struct APIManager {
             }
             
         }.resume()
-        
-        session.finishTasksAndInvalidate() // if yu miss
-        
-        // task.resume()
+        // if you miss to call this, it causes a memory leak
+        session.finishTasksAndInvalidate()
         
     }
     
     
     private func mappingJSON(from data: Data) -> Result<[Photos], FlickrError> {
         
-        
         let formatter = DateFormatter()
-        
         formatter.dateFormat = "yyyy'-'MM'-'dd' 'HH':'mm':'ss'"
         
         let decoder = JSONDecoder()

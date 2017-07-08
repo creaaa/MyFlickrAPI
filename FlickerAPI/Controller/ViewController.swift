@@ -45,9 +45,13 @@ extension ViewController: UICollectionViewDelegate {
         
         let vc = sb.instantiateViewController(withIdentifier: "Detail") as! DetailViewController
         
+        // this causes NPE cuz imageView is yet nil in this step 😰
+        // vc.imageView.image = image
+        
         vc.image = image
         
         self.navigationController?.pushViewController(vc, animated: true)
+        
     }
 }
 
@@ -67,7 +71,7 @@ extension ViewController: UICollectionViewDataSource {
                 return item
         }
         
-        guard let url = self.photos[indexPath.row].remoteURL else {
+        guard le1t url = self.photos[indexPath.row].remoteURL else {
             return item
         }
                 

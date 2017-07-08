@@ -14,11 +14,11 @@ struct FlickrRequest {
     
     // end point
     static var interestingPhotosURL: URL {
-        return flickrURL(method: .interestingPhotos,
+        return flickrURL(method:     .interestingPhotos,
                          parameters: ["extras":"url_h, date_taken"])
     }
     
-    private static func flickrURL(method: Method,
+    private static func flickrURL(method:     Method,
                                   parameters: [String:String]?) -> URL {
         
         var components = URLComponents(string: base)!
@@ -32,12 +32,15 @@ struct FlickrRequest {
             "nojsoncallback": "1"
         ]
         
-        baseParams.forEach { element in
-            queryItems.append(URLQueryItem(name: element.key, value: element.value))
+        // using dictionary as a seed, yields "URLQueryItem"
+        baseParams.forEach {
+            queryItems.append(URLQueryItem(name: $0.key, value: $0.value))
         }
-                
-        _ = parameters.map {
-            $0.map { queryItems.append(URLQueryItem(name: $0.key, value: $0.value)) }
+        
+        parameters.map {
+            $0.forEach {
+                queryItems.append(URLQueryItem(name: $0.key, value: $0.value))
+            }
         }
         
         components.queryItems = queryItems
